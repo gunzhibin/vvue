@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id = "app">
+    <parent :imgsrc = "img" :title = "title"></parent>
+</div>
+<!--子组件-->
+<template id = "my-img">
+    <img :src="imgsrc" width="200">
+</template>
+<template id = "my-title">
+    <h2>{{title}}</h2>
+</template>
+<!--父组件-->
+<template id = "parent-tem">
+    <div>
+        <child1 :imgsrc = "imgsrc"></child1>
+        <child2 :title = "title"></child2>
+    </div>
+</template>
+<script src="js/vue.js"></script>
+<script >
+    //1、子组件实例化
+    let child1 = Vue.extend({
+        template:"#my-img",
+        props:['imgsrc']
+    });
+    let child2 = Vue.extend({
+        template:"#my-title",
+        props:['title']
+    });
+    //2、注册父组件
+    let parent = Vue.component('parent',{
+        props:['imgsrc','title'],
+        components:{
+            child1,
+            child2
+        },
+        template:"#parent-tem"
+    });
+    let mod = new Vue({
+        el:"#app",
+        data:{
+            title:"父子组件",
+            img:"img/img.png"
+        }
+    })
+</script>
+</body>
+</html>

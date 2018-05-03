@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id = "app">
+    <my_btn v-on:total = "alltotalcount()"></my_btn>
+    <my_btn v-on:total = "alltotalcount()"></my_btn>
+    <my_btn v-on:total = "alltotalcount()"></my_btn>
+    <my_btn v-on:total = "alltotalcount()"></my_btn>
+    <p>总共点击了{{totalcount}}次</p>
+</div>
+<template id = "my_btn">
+    <button v-on:click = "total()">点击了{{counter}}次</button>
+</template>
+<script src="js/vue.js"></script>
+<script >
+    Vue.component('my_btn', {
+        template: "#my_btn",
+        data(){//component里面的data一定要是方法
+            return{
+                counter:0
+            }
+        },
+        methods:{
+            total(){//自定义事件
+                this.counter += 1;
+                //通知外界，调用$emit()回传
+                this.$emit('total');//告诉外界调用了这个方法
+            }
+        }
+    });
+    let mod = new Vue({
+        el:"#app",
+        data:{
+            totalcount:0
+        },
+        methods:{
+            alltotalcount(){
+                this.totalcount +=1;
+            }
+        }
+    })
+</script>
+</body>
+</html>
