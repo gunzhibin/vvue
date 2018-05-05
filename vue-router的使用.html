@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+    <div id="app">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="page-header">
+                    <h1>奋斗人生</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-xs-offset-2">
+                <div class="list-group">
+                    <!--使用router-link组件来导航-->
+                    <!--通过传入 to 属性指定链接-->
+                    <!--<router-link>默认会被渲染成一个 <a> 标签-->
+                    <router-link class="list-group-item" to="/qa">QA</router-link>
+                    <router-link class="list-group-item" to="/rd">RD</router-link>
+                    <router-link class="list-group-item" to="/fe">FE</router-link>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel">
+                    <div class="panel-body">
+                        <!--路由出口-->
+                        <!--路由匹配到的组件将渲染在这里-->
+                        <router-view></router-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template id="qa">
+        <div>
+            <h2>QA部门</h2>
+            <p>质量保证</p>
+            <img src="img/img2.jpg" width="200px">
+        </div>
+    </template>
+    <template id="rd">
+        <div>
+            <h2>RD研发</h2>
+            <p>技术大牛</p>
+            <img src="img/心灵神往的地方1.jpg" width="200px">
+        </div>
+    </template>
+    <template id="fe">
+        <div>
+            <h2>FE</h2>
+            <p>靠炫吃饭</p>
+            <img src="img/心灵神往的地方2.jpg" width="200px">
+        </div>
+    </template>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        //0、如果使用模块化机制编程，导入Vue 和 VueRouter，要调用Vue.use(VueRouter)
+
+        //1、创建组件
+        //可以从其他文件 import 进来
+        const qa = Vue.extend({
+            template:"#qa"
+        });
+        const rd = Vue.extend({
+            template:"#rd"
+        });
+        const fe = Vue.extend({
+            template:"#fe"
+        });
+        //2、定义路由
+        //每个路由应该映射一个组件。其中"component"可以是通过
+        //Vue.extent()创建的组件构造器，或者只是一个组件配置对象
+        const routes = [
+            {path: "/qa", component: qa},
+            {path:"/rd",component:rd},
+            {path:"/fe",component:fe},
+            //配置跟路由
+            {path:'/',redirect:"/qa"}
+        ];
+        //3、创建路由实例，然后传“routes”配置，还可以传别的配置参数
+        const router = new VueRouter({
+            routes:routes
+        });
+        //4、创建vue的实例，并挂载
+        //记得要通过router配置参数注入路由，从而让整个应用都有路由功能
+        new Vue({
+            router
+        }).$mount("#app")
+    </script>
+    <style>
+        body{
+            background-color: #e8e8e8;
+        }
+    </style>
+</body>
+</html>
